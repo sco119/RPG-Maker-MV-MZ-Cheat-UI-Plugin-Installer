@@ -1,0 +1,178 @@
+import { VerticalBox, HorizontalBox, ScrollView } from "std-widgets.slint";
+
+component CustomButton inherits Rectangle {
+    in property <string> text;
+    in property <bool> enabled: true;
+    in property <color> bg-color;
+    in property <color> text-color;
+    in property <color> btn-border-color;
+    
+    callback clicked();
+
+    height: 34px;
+    border-radius: 6px;
+    border-width: 1px;
+    border-color: root.enabled ? root.btn-border-color : root.btn-border-color.transparentize(0.5); 
+    background: !root.enabled ? root.bg-color.darker(5%) :
+                ta.pressed ? root.bg-color.darker(15%) :
+                ta.has-hover ? root.bg-color.darker(-10%) : 
+                root.bg-color;
+
+    ta := TouchArea {
+        enabled: root.enabled;
+        clicked => { root.clicked(); }
+    }
+
+    Text {
+        text: root.text;
+        color: root.enabled ? root.text-color : root.text-color.transparentize(0.5);
+        font-size: 13px;
+        font-weight: 800;
+        horizontal-alignment: center;
+        vertical-alignment: center;
+    }
+}
+
+export component AppWindow inherits Window {
+    title: "RPG Maker MV/MZ Cheat UI Installer (Original by paramonos&nt7011)";
+    preferred-width: 560px;
+    preferred-height: 400px;
+
+    in-out property <bool> dark-mode: true;
+    
+    out property <color> bg-color: root.dark-mode ? #131314 : #ffffff;
+    out property <color> surface-color: root.dark-mode ? #1e1f20 : #f0f4f9;
+    out property <color> primary-text: root.dark-mode ? #e3e3e3 : #1f1f1f;
+    out property <color> accent-color: root.dark-mode ? #a8c7fa : #1b57d0;
+    out property <color> border-color: root.dark-mode ? #444746 : #e1e3e1;
+
+    background: root.bg-color;
+
+    in-out property <string> install-button-text: "치트 설치";
+    in-out property <string> folder-path: "선택된 폴더 없음";
+    in-out property <string> status-text: "폴더 선택을 대기 중입니다.";
+    in-out property <string> layout-text: "알 수 없음";
+    in-out property <string> plugin-target-text: "알 수 없음";
+    in-out property <string> plugins-js-text: "알 수 없음";
+    in-out property <bool> install-enabled: false;
+
+    callback pick-folder-clicked();
+    callback install-clicked();
+
+    ScrollView {
+        VerticalLayout {
+            padding: 12px;
+            spacing: 12px;
+
+            HorizontalBox {
+                spacing: 10px;
+                VerticalBox {
+                    spacing: 4px;
+                    Text {
+                        text: "RPG Maker MV/MZ Cheat UI 플러그인 설치기";
+                        font-size: 16px;
+                        font-weight: 800;
+                        color: root.primary-text;
+                    }
+                    Text {
+                        text: "게임 폴더를 선택(또는 드래그)하여 치트 플러그인을 설치하세요.";
+                        font-size: 11px;
+                        color: root.primary-text;
+                    }
+                }
+                
+                CustomButton {
+                    text: root.dark-mode ? "라이트 모드" : "다크 모드";
+                    width: 100px;
+                    bg-color: root.surface-color;
+                    text-color: root.primary-text;
+                    btn-border-color: root.border-color;
+                    clicked => { root.dark-mode = !root.dark-mode; }
+                }
+            }
+
+            HorizontalBox {
+                spacing: 8px;
+                
+                CustomButton {
+                    text: "게임 폴더 선택";
+                    bg-color: root.surface-color;
+                    text-color: root.accent-color;
+                    btn-border-color: root.accent-color;
+                    clicked => { root.pick-folder-clicked(); }
+                }
+                
+                CustomButton {
+                    text: root.install-button-text;
+                    width: 110px;
+                    enabled: root.install-enabled;
+                    bg-color: root.surface-color;
+                    text-color: root.accent-color;
+                    btn-border-color: root.accent-color;
+                    clicked => { root.install-clicked(); }
+                }
+            }
+
+            Rectangle { height: 1px; background: root.border-color; }
+
+            Rectangle {
+                background: root.surface-color;
+                border-radius: 8px;
+                border-width: 1px;
+                border-color: root.border-color;
+
+                VerticalLayout {
+                    padding: 12px;
+                    spacing: 8px;
+
+                    Text {
+                        text: "감지된 폴더 정보";
+                        font-size: 14px;
+                        font-weight: 700;
+                        color: root.primary-text;
+                    }
+                    
+                    VerticalLayout {
+                        spacing: 2px;
+                        Text {
+                            text: "폴더 경로:"; 
+                            color: root.primary-text; 
+                            font-size: 13px; 
+                            font-weight: 700;
+                        }
+                        Text {
+                            text: root.folder-path; 
+                            color: root.primary-text; 
+                            font-size: 13px; 
+                            wrap: word-wrap;
+                        }
+                    }
+
+                    GridLayout {
+                        spacing: 8px;
+
+                        Row {
+                            Text { col: 0; text: "상태"; font-size: 13px; font-weight: 700; color: root.primary-text; }
+                            Text { col: 1; text: "구조"; font-size: 13px; font-weight: 700; color: root.primary-text; }
+                        }
+
+                        Row {
+                            Text { col: 0; text: root.status-text; font-size: 12px; color: root.primary-text; overflow: elide; horizontal-stretch: 1; }
+                            Text { col: 1; text: root.layout-text; font-size: 12px; color: root.primary-text; horizontal-stretch: 1; }
+                        }
+
+                        Row {
+                            Text { col: 0; text: "플러그인 경로"; font-size: 13px; font-weight: 700; color: root.primary-text; }
+                            Text { col: 1; text: "plugins.js"; font-size: 13px; font-weight: 700; color: root.primary-text; }
+                        }
+
+                        Row {
+                            Text { col: 0; text: root.plugin-target-text; font-size: 12px; color: root.primary-text; overflow: elide; horizontal-stretch: 1; }
+                            Text { col: 1; text: root.plugins-js-text; font-size: 12px; color: root.primary-text; overflow: elide; horizontal-stretch: 1; }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

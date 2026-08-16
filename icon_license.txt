@@ -1,0 +1,16 @@
+==================================================
+RPG Maker MV/MZ Cheat UI Plugin Desktop Installer
+==================================================
+
+This software is a standalone 3rd-party desktop port.
+Credits and acknowledgments go to the original authors:
+
+1st Gen (Original Plugin):
+   - Author: paramonos
+   - Repository: https://github.com/paramonos/RPG-Maker-MV-MZ-Cheat-UI-Plugin
+
+2nd Gen (Web Installer):
+   - Author: nt7011
+   - Repository: https://github.com/nt7011/RPG-Maker-MV-MZ-Cheat-UI-Plugin-Web-Installer
+
+Icon by Clarity design system on <a href="https://icon-icons.com/ko/authors/1347-clarity-design-system">Icon-Icons.com</a>
