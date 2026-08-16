@@ -1,5 +1,7 @@
 # RPG Maker MV/MZ Cheat UI Plugin Installer
 
+RPG Maker MV/MZ 게임용 치트 UI 플러그인을 자동으로 감지 및 설치해 주는 데스크톱 GUI 프로그램입니다.
+
 A native desktop GUI application installer for RPG Maker MV/MZ Cheat UI Plugin.
 
 Based on [RPG-Maker-MV-MZ-Cheat-UI-Plugin](https://github.com/paramonos/RPG-Maker-MV-MZ-Cheat-UI-Plugin) by paramonos and [RPG-Maker-MV-MZ-Cheat-UI-Plugin-Web-Installer](https://github.com/nt7011/RPG-Maker-MV-MZ-Cheat-UI-Plugin-Web-Installer) by nt7011.
@@ -62,4 +64,12 @@ Desktop Installer Application: SCO119
 ---
 
 ## License
+
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+---
+
+##Multilingual Support
+
+Currently, the application UI is provided in Korean.
+Multilingual support (English, Japanese, etc.) is planned for future updates.
